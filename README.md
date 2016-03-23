@@ -9,3 +9,4 @@ Users can define custom settings for generating the content like article length,
 * jQuery
 * Bootstrap
 # Goutte Simple PHP Web Scraper
+# Proxima Nova from Typekit
