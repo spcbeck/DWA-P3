@@ -1,7 +1,3 @@
-<?php
-require('logic.php');
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -30,30 +26,66 @@ require('logic.php');
 	    <![endif]-->
 	</head>
 
-	<body>
+	<body class="container-fluid">
+		<h1>Fuzz Beed</h1>
 		<div class="row">
 			<div class="col-md-4">
-				<div class="panel">
+				<div class="panel panel-default">
 					<div class="panel-heading">
-						Generate Writer
+						Buzzfeed Writer Profile Generator
 					</div>
 					<div class="panel-body">
-
+						<form method="POST">
+						{{ csrf_field() }}
+							<div class="form-group">
+								<label>Include:</label>
+								<div class="btn-group" data-toggle="buttons">
+	                				<label class="btn btn-default">
+	                					<input type="radio"> Twitter Bio
+	                				</label>
+	                				<label class="btn btn-default">
+	                					<input type="radio"> Location
+	                				</label>
+	                				<label class="btn btn-default">
+	                					<input type="radio"> Department
+	                				</label>
+	                			</div>
+							</div>
+							<button class="btn btn-primary" type="submit">Generate Writer</button>
+						</form>
 					</div>
 				</div>
-				<div class="panel">
+				<div class="panel panel-default">
 					<div class="panel-heading">
-						Generate Article
+						Buzzfeed List and Article Generator
 					</div>
 					<div class="panel-body">
-
+						<form method="POST" action="/articles/create">
+						{{ csrf_field() }}
+							<div class="form-group">
+								<label>Type:</label>
+								<div class="btn-group" data-toggle="buttons">
+		            				<label class="btn btn-default">
+		            					<input type="radio"> Listicle
+		            				</label>
+		            				<label class="btn btn-default">
+		            					<input type="radio"> Long Form
+		            				</label>
+		            			</div>
+		            		</div>
+		            		<div class="form-group">
+		            			<label># of Paragraphs/List Items</label>
+		            			<input type-"number" />
+		            		</div>
+		            		<button class="btn btn-primary" type="submit">Generate Article</button>
+	            		</form>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-8">
-				<div class="panel">
+				<div class="panel panel-default">
 					<div class="panel-heading">
-
+					Ur Content
 					</div>
 					<div class="panel-body">
 

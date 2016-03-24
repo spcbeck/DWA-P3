@@ -11,9 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +25,10 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['web']], function () {
     //
+	Route::get('/articles', 'ArticleController@getIndex');
+    Route::post('/articles/create', 'ArticleController@postCreateArticle');
+
+    Route::get('/', function () {
+	    return view("layout.master");
+	});
 });
