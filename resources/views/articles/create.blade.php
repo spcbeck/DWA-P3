@@ -52,15 +52,4 @@
 		</form>
 	</div>
 </div>
-<div class="panel panel-default">
-	<div class="panel-heading">
-		Article and User Scraper
-	</div>
-	<div class="panel-body">
-		<form method="GET" action="/articles/scrape">
-			{{ csrf_field() }}
-    		<button class="btn btn-primary" type="submit">Scrape Articles</button>
-		</form>
-	</div>
-</div>
 @stop

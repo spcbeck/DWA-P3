@@ -10,6 +10,8 @@
 	  	<meta name="description" content="Dynamic Web Applications Project 2 site">
 	  	<meta name="author" content="Sean Beck">
 
+	  	<link rel="SHORTCUT ICON" href="/favicon.ico" />
+
 	  	<link href="/css/app.css" rel="stylesheet" type="text/css">
 	 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
 
@@ -38,14 +40,16 @@
 			<nav class="navbar navbar-default">
 				<div class="container">
 				<!-- Collect the nav links, forms, and other content for toggling -->
-			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				      <ul class="nav navbar-nav">
-				        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-				        <li><a href="#">Link</a></li>
-				      </ul>
-			     </div>
-			     </div>
+				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				    	<ul class="nav navbar-nav">
+				        	<li><a href="#" onclick="document.getElementById('scraper').submit();">Gather Content <span class="sr-only">(current)</span></a></li>
+				    	</ul>
+				    </div>
+			    </div>
 			</nav>
+			<form id="scraper" method="GET" action="/articles/scrape" class="hidden">
+				{{ csrf_field() }}
+			</form>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-4">

@@ -43,6 +43,14 @@ class ArticleController extends Controller {
     public function postCreateWriter(Request $request) {
         $recoveredWriters = file_get_contents("writers.txt");
         $writers = explode('","', $recoveredWriters);
+
+        $i = array_rand($writers);
+        $writer = $writers[$i];
+
+        $writer = str_replace("[\"", "", $writer);
+        $writer = str_replace("\"]", "", $writer);
+
+        return view("layout.master")->nest('content', 'articles.create')->nest('articleDisplay', 'users.index', ['name' => $writer]);
     }
 
 
@@ -148,7 +156,7 @@ class ArticleController extends Controller {
         file_put_contents('headers.txt', $jsonHeaders);
 
 
-        return $serializedArticles;
+        return view("layout.master")->nest("content", "articles.create")->nest("articleDisplay", 'articles.index', ['header' => "Successfully gathered Content!"]);
     }
 
     /**
