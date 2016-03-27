@@ -35,7 +35,7 @@
 						Buzzfeed Writer Profile Generator
 					</div>
 					<div class="panel-body">
-						<form method="POST">
+						<form method="POST" action="/writers/create">
 						{{ csrf_field() }}
 							<div class="form-group">
 								<label>Include:</label>
@@ -61,7 +61,7 @@
 					</div>
 					<div class="panel-body">
 						<form method="POST" action="/articles/create">
-						{{ csrf_field() }}
+							{{ csrf_field() }}
 							<div class="form-group">
 								<label>Type:</label>
 								<div class="btn-group" data-toggle="buttons">
@@ -75,9 +75,24 @@
 		            		</div>
 		            		<div class="form-group">
 		            			<label># of Paragraphs/List Items</label>
-		            			<input type-"number" />
+		            			<input type-"number" name="paragraphAmount" required id="paragraphAmount"/>
 		            		</div>
 		            		<button class="btn btn-primary" type="submit">Generate Article</button>
+	            		</form>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Article and User Scraper
+					</div>
+					<div class="panel-body">
+						<form method="GET" action="/articles/scrape">
+							{{ csrf_field() }}
+		            		<button class="btn btn-primary" type="submit">Scrape Articles</button>
+	            		</form>
+	            		<form method="GET" action="/writers/scrape">
+							{{ csrf_field() }}
+		            		<button class="btn btn-primary" type="submit">Scrape Writers</button>
 	            		</form>
 					</div>
 				</div>
@@ -86,9 +101,6 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 					Ur Content
-					</div>
-					<div class="panel-body">
-
 					</div>
 				</div>
 			</div>

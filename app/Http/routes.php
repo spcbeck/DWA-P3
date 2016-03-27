@@ -26,9 +26,18 @@
 Route::group(['middleware' => ['web']], function () {
     //
 	Route::get('/articles', 'ArticleController@getIndex');
+
     Route::post('/articles/create', 'ArticleController@postCreateArticle');
+    Route::post('/writers/create', 'ArticleController@postCreateWriter');
+
+    Route::get('/articles/scrape', 'ArticleController@getScrapeArticle');
+    Route::get('/writers/scrape', 'ArticleController@getScrapeWriters');
 
     Route::get('/', function () {
 	    return view("layout.master");
 	});
+
+	if(App::environment('local')) {
+		Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+	};
 });
