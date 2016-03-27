@@ -35,9 +35,18 @@
 					Ur Content
 					</div>
 					<div class="panel-body">
-						@foreach ($article as $paragraph)
-						    <p>{{ $paragraph }}.</p>
-						@endforeach
+						@if(!empty($article))
+							@foreach ($article as $paragraph)
+							    <p>{{ $paragraph }}.</p>
+							@endforeach
+						@endif
+						@if(!empty($listicle))
+							<ul>
+							@foreach ($listicle as $listitem)
+							    <li>{{ $listitem }}.</li>
+							@endforeach
+							</ul>
+						@endif
 					</div>
 				</div>
 			</div>

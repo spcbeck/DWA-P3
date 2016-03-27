@@ -146,52 +146,95 @@ class ArticleController extends Controller {
      */
     public function postCreateArticle(Request $request) {
 
-        //check if articles array file exists, if so use it to create an article, if not create a new array.
-        if(file_exists("articles.txt")){
-            $recoveredArticles = file_get_contents('articles.txt');
-            $listicleItems = json_decode($recoveredArticles);
+        if($request->input("listicle") != null){
+            //check if articles array file exists, if so use it to create an article, if not create a new array.
+            if(file_exists("listicles.txt")){
+                $recoveredArticles = file_get_contents('listicles.txt');
 
-            $paragraphAmount = $request->input("paragraphAmount");
+                $paragraphAmount = $request->input("paragraphAmount");
 
-            $article = array();
+                $article = array();
 
-            $listicleItems = explode('. ', $recoveredArticles);
+                $listicleItems = explode('","', $recoveredArticles);
 
-            //Create the article from piecing together paragraphs
-            for($i = 0; $i < $paragraphAmount; $i++){
-                $paragraphArray = array();
+                //Create the article from piecing together paragraphs
+                for($i = 0; $i < $paragraphAmount; $i++){
+                    $paragraphArray = array();
 
-                for($x = 0; $x < 3; $x++) {
-                    $k = array_rand($listicleItems);
-                    $paragraphArray[] = $listicleItems[$k];
+                    for($x = 0; $x < 3; $x++) {
+                        $k = array_rand($listicleItems);
+                        $paragraphArray[] = $listicleItems[$k];
 
+                    }
+
+                    $paragraph = implode($paragraphArray);
+
+
+                    $paragraph = str_replace("\u2019", "'", $paragraph);
+                    $paragraph = str_replace("\u2018", "'", $paragraph);
+                    $paragraph = str_replace("\u201c", "\"", $paragraph);
+                    $paragraph = str_replace("\u201d", "\"", $paragraph);
+                    $paragraph = str_replace("\u2014", "–", $paragraph);
+                    $paragraph = str_replace("\u2026", "...", $paragraph);
+                    $paragraph = str_replace("\u00a0", "", $paragraph);
+                    $paragraph = str_replace("View this image \u203a", "", $paragraph);
+                    $paragraph = str_replace("\",\"", " ", $paragraph);
+                    $article[] = $paragraph;
                 }
 
-                $paragraph = implode($paragraphArray);
-
-
-                $paragraph = str_replace("\u2019", "'", $paragraph);
-                $paragraph = str_replace("\u2018", "'", $paragraph);
-                $paragraph = str_replace("\u201c", "\"", $paragraph);
-                $paragraph = str_replace("\u201d", "\"", $paragraph);
-                $paragraph = str_replace("\u2014", "–", $paragraph);
-                $paragraph = str_replace("\u2026", "...", $paragraph);
-                $paragraph = str_replace("\u00a0", "", $paragraph);
-                $paragraph = str_replace("View this image \u203a", "", $paragraph);
-                $paragraph = str_replace("\",\"", " ", $paragraph);
-                $article[] = $paragraph;
+                if(is_array($listicleItems)){
+                    return view('articles.index')->with("listicle", $article);
+                } else {
+                    return view('articles.index');
+                }
+            } else {
+                $listicleItems = array();
             }
-        } else {
-            $listicleItems = array();
+        } elseif($request->input("longform") != null) {
+            //check if articles array file exists, if so use it to create an article, if not create a new array.
+            if(file_exists("articles.txt")){
+                $recoveredArticles = file_get_contents('articles.txt');
+                $listicleItems = json_decode($recoveredArticles);
+
+                $paragraphAmount = $request->input("paragraphAmount");
+
+                $article = array();
+
+                $listicleItems = explode('. ', $recoveredArticles);
+
+                //Create the article from piecing together paragraphs
+                for($i = 0; $i < $paragraphAmount; $i++){
+                    $paragraphArray = array();
+
+                    for($x = 0; $x < 3; $x++) {
+                        $k = array_rand($listicleItems);
+                        $paragraphArray[] = $listicleItems[$k];
+
+                    }
+
+                    $paragraph = implode($paragraphArray);
+
+
+                    $paragraph = str_replace("\u2019", "'", $paragraph);
+                    $paragraph = str_replace("\u2018", "'", $paragraph);
+                    $paragraph = str_replace("\u201c", "\"", $paragraph);
+                    $paragraph = str_replace("\u201d", "\"", $paragraph);
+                    $paragraph = str_replace("\u2014", "–", $paragraph);
+                    $paragraph = str_replace("\u2026", "...", $paragraph);
+                    $paragraph = str_replace("\u00a0", "", $paragraph);
+                    $paragraph = str_replace("View this image \u203a", "", $paragraph);
+                    $paragraph = str_replace("\",\"", " ", $paragraph);
+                    $article[] = $paragraph;
+                }
+
+                if(is_array($listicleItems)){
+                    return view('articles.index')->with("article", $article);
+                } else {
+                    return view('articles.index');
+                }
+            } else {
+                $listicleItems = array();
+            }
         }
-
-
-
-        if(is_array($listicleItems)){
-            return view('articles.index')->with("article", $article);
-        } else {
-            return view('articles.index');
-        }
-        
     }
 }
