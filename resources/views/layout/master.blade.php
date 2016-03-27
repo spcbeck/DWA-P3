@@ -10,7 +10,7 @@
 	  	<meta name="description" content="Dynamic Web Applications Project 2 site">
 	  	<meta name="author" content="Sean Beck">
 
-	  	<link href="./css/styles.css" rel="stylesheet" type="text/css">
+	  	<link href="/css/app.css" rel="stylesheet" type="text/css">
 	 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
 
 	 	<script src="https://use.typekit.net/tjj3ezf.js"></script>
@@ -26,82 +26,33 @@
 	    <![endif]-->
 	</head>
 
-	<body class="container-fluid">
-		<h1>Fuzz Beed</h1>
-		<div class="row">
-			<div class="col-md-4">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						Buzzfeed Writer Profile Generator
-					</div>
-					<div class="panel-body">
-						<form method="POST" action="/writers/create">
-						{{ csrf_field() }}
-							<div class="form-group">
-								<label>Include:</label>
-								<div class="btn-group" data-toggle="buttons">
-	                				<label class="btn btn-default">
-	                					<input type="radio"> Twitter Bio
-	                				</label>
-	                				<label class="btn btn-default">
-	                					<input type="radio"> Location
-	                				</label>
-	                				<label class="btn btn-default">
-	                					<input type="radio"> Department
-	                				</label>
-	                			</div>
-							</div>
-							<button class="btn btn-primary" type="submit">Generate Writer</button>
-						</form>
-					</div>
+	<body>
+		<div class="container">
+			<header class="clearfix">
+				<h1 class="pull-left"><img src="/images/fuzzbeed.svg" alt="Fuzz Beed" /></h1>
+				<img src="/images/reactions.png" alt="reactions" class="pull-right reactions" />
+			</header>
+
+		</div>
+
+			<nav class="navbar navbar-default">
+				<div class="container">
+				<!-- Collect the nav links, forms, and other content for toggling -->
+			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				      <ul class="nav navbar-nav">
+				        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+				        <li><a href="#">Link</a></li>
+				      </ul>
+			     </div>
+			     </div>
+			</nav>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					@yield('content')
 				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						Buzzfeed List and Article Generator
-					</div>
-					<div class="panel-body">
-						<form method="POST" action="/articles/create">
-							{{ csrf_field() }}
-							<div class="form-group">
-								<label>Type:</label>
-								<div class="btn-group" data-toggle="buttons">
-		            				<label class="btn btn-default">
-		            					<input type="radio" name="listicle"> Listicle
-		            				</label>
-		            				<label class="btn btn-default">
-		            					<input type="radio" name="longform"> Long Form
-		            				</label>
-		            			</div>
-		            		</div>
-		            		<div class="form-group">
-		            			<label># of Paragraphs/List Items</label>
-		            			<input type-"number" name="paragraphAmount" required id="paragraphAmount"/>
-		            		</div>
-		            		<button class="btn btn-primary" type="submit">Generate Article</button>
-	            		</form>
-					</div>
-				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						Article and User Scraper
-					</div>
-					<div class="panel-body">
-						<form method="GET" action="/articles/scrape">
-							{{ csrf_field() }}
-		            		<button class="btn btn-primary" type="submit">Scrape Articles</button>
-	            		</form>
-	            		<form method="GET" action="/writers/scrape">
-							{{ csrf_field() }}
-		            		<button class="btn btn-primary" type="submit">Scrape Writers</button>
-	            		</form>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-8">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-					Ur Content
-					</div>
+				<div class="col-md-8">
+					@yield('articleDisplay')
 				</div>
 			</div>
 		</div>

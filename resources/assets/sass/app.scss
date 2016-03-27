@@ -1,2 +1,29 @@
 // @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+body {
+	font-family: "proxima-nova","Open Sans","Gill Sans MT","Gill Sans",Corbel,Arial,sans-serif !important;
+}
+
+h1 img {
+	width: 287px;
+	height: 50px;
+}
+
+.reactions {
+	width: 418px;
+	margin-top: 5px;
+}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form,.navbar-default {
+	border-color: transparent !important;
+	background-color: #eaeaea!important;
+}
+
+.navbar-default .navbar-nav>li>a {
+	font-size: 21px;
+	color: #111 !important;
+
+	&:hover {
+		background-color: #fff !important;
+	}
+}

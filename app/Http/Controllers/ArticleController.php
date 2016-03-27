@@ -40,8 +40,9 @@ class ArticleController extends Controller {
     /**
      * Responds to requests to Post /writers/create
      */
-    public function postCreateWriter() {
-      
+    public function postCreateWriter(Request $request) {
+        $recoveredWriters = file_get_contents("writers.txt");
+        $writers = explode('","', $recoveredWriters);
     }
 
 
@@ -71,6 +72,13 @@ class ArticleController extends Controller {
         if(file_exists("writers.txt")){
             $recoveredWriters = file_get_contents('writers.txt');
             $writers = json_decode($recoveredWriters);
+        } else {
+            $writers = array();
+        }
+
+        if(file_exists("headers.txt")){
+            $recoveredHeaders = file_get_contents('headers.txt');
+            $headers = json_decode($recoveredHeaders);
         } else {
             $writers = array();
         }
@@ -115,8 +123,8 @@ class ArticleController extends Controller {
                 $articleItems[] = $articlePiece;
             }
 
-            if(!in_array($header, $articleItems) && $header != "") {
-                $articleItems[] = $header;
+            if(!in_array($header, $headers) && $header != "") {
+                $headers[] = $header;
             }
 
             if(!in_array($writer, $writers) && $writer != "") {
@@ -132,10 +140,12 @@ class ArticleController extends Controller {
         $serializedArticles = json_encode($articleItems);
         $jsonWriters = json_encode($writers);
         $jsonListicles = json_encode($listicleItems);
+        $jsonHeaders = json_encode($headers);
 
         file_put_contents('writers.txt', $jsonWriters);
         file_put_contents('articles.txt', $serializedArticles);
         file_put_contents('listicles.txt', $jsonListicles);
+        file_put_contents('headers.txt', $jsonHeaders);
 
 
         return $serializedArticles;
@@ -145,6 +155,25 @@ class ArticleController extends Controller {
      * Responds to requests to POST /articles/create
      */
     public function postCreateArticle(Request $request) {
+
+        //get header (do this first as every article type will have a header)
+        $recoveredHeaders = file_get_contents("headers.txt");
+        $headers = explode('","', $recoveredHeaders);
+
+        $i = array_rand($headers);
+        $header = $headers[$i];
+
+        $header = str_replace("\u2019", "'", $header);
+        $header = str_replace("\u2018", "'", $header);
+        $header = str_replace("\u201c", "\"", $header);
+        $header = str_replace("\u201d", "\"", $header);
+        $header = str_replace("\u2014", "–", $header);
+        $header = str_replace("\u2026", "...", $header);
+        $header = str_replace("\u00a0", " ", $header);
+        $header = str_replace("\u00e9", "e", $header);
+        $header = str_replace("[\" ", "", $header);
+        $header = str_replace("\"]", "", $header);
+
 
         if($request->input("listicle") != null){
             //check if articles array file exists, if so use it to create an article, if not create a new array.
@@ -157,17 +186,20 @@ class ArticleController extends Controller {
 
                 $listicleItems = explode('","', $recoveredArticles);
 
+
                 //Create the article from piecing together paragraphs
                 for($i = 0; $i < $paragraphAmount; $i++){
                     $paragraphArray = array();
 
-                    for($x = 0; $x < 3; $x++) {
-                        $k = array_rand($listicleItems);
-                        $paragraphArray[] = $listicleItems[$k];
+                    $k = array_rand($listicleItems);
+                    $paragraphArray[] = $listicleItems[$k];
 
-                    }
 
                     $paragraph = implode($paragraphArray);
+
+                    $paragraph = explode(',"', $paragraph);
+
+                    $paragraph = implode($paragraph);
 
 
                     $paragraph = str_replace("\u2019", "'", $paragraph);
@@ -176,16 +208,20 @@ class ArticleController extends Controller {
                     $paragraph = str_replace("\u201d", "\"", $paragraph);
                     $paragraph = str_replace("\u2014", "–", $paragraph);
                     $paragraph = str_replace("\u2026", "...", $paragraph);
-                    $paragraph = str_replace("\u00a0", "", $paragraph);
+                    $paragraph = str_replace("\u00a0", " ", $paragraph);
+                    $paragraph = str_replace("\u00e9", "e", $paragraph);
+                    $paragraph = str_replace("\u2013", "-", $paragraph);
+                    $paragraph = str_replace("[\" ", "", $paragraph);
                     $paragraph = str_replace("View this image \u203a", "", $paragraph);
-                    $paragraph = str_replace("\",\"", " ", $paragraph);
                     $article[] = $paragraph;
                 }
 
                 if(is_array($listicleItems)){
-                    return view('articles.index')->with("listicle", $article);
+                    return view('layout.master')
+                    ->nest('content', 'articles.create')
+                    ->nest('articleDisplay', 'articles.index', ['article' => $article, 'header' => $header]);
                 } else {
-                    return view('articles.index');
+                    return view('layout.master');
                 }
             } else {
                 $listicleItems = array();
@@ -209,10 +245,9 @@ class ArticleController extends Controller {
                     for($x = 0; $x < 3; $x++) {
                         $k = array_rand($listicleItems);
                         $paragraphArray[] = $listicleItems[$k];
-
                     }
 
-                    $paragraph = implode($paragraphArray);
+                    $paragraph = implode(". ", $paragraphArray);
 
 
                     $paragraph = str_replace("\u2019", "'", $paragraph);
@@ -221,16 +256,22 @@ class ArticleController extends Controller {
                     $paragraph = str_replace("\u201d", "\"", $paragraph);
                     $paragraph = str_replace("\u2014", "–", $paragraph);
                     $paragraph = str_replace("\u2026", "...", $paragraph);
-                    $paragraph = str_replace("\u00a0", "", $paragraph);
+                    $paragraph = str_replace("\u00a0", " ", $paragraph);
+                    $paragraph = str_replace("\u00e9", "e", $paragraph);
+                    $paragraph = str_replace("\u00bd", "½", $paragraph);
+                    $paragraph = str_replace("\u00f1", "n", $paragraph);
+                    $paragraph = str_replace("[\" ", "", $paragraph);
                     $paragraph = str_replace("View this image \u203a", "", $paragraph);
                     $paragraph = str_replace("\",\"", " ", $paragraph);
                     $article[] = $paragraph;
                 }
 
                 if(is_array($listicleItems)){
-                    return view('articles.index')->with("article", $article);
+                    return view('layout.master')
+                    ->nest('content', 'articles.create')
+                    ->nest('articleDisplay', 'articles.index', ['article' => $article, 'header' => $header]);
                 } else {
-                    return view('articles.index');
+                    return view('layout.master');
                 }
             } else {
                 $listicleItems = array();

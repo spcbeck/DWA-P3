@@ -1,0 +1,32 @@
+/* line 3, ../../resources/assets/sass/app.scss */
+body {
+  font-family: "proxima-nova","Open Sans","Gill Sans MT","Gill Sans",Corbel,Arial,sans-serif !important;
+}
+
+/* line 7, ../../resources/assets/sass/app.scss */
+h1 img {
+  width: 287px;
+  height: 50px;
+}
+
+/* line 12, ../../resources/assets/sass/app.scss */
+.reactions {
+  width: 418px;
+  margin-top: 5px;
+}
+
+/* line 17, ../../resources/assets/sass/app.scss */
+.navbar-default .navbar-collapse, .navbar-default .navbar-form, .navbar-default {
+  border-color: transparent !important;
+  background-color: #eaeaea !important;
+}
+
+/* line 22, ../../resources/assets/sass/app.scss */
+.navbar-default .navbar-nav > li > a {
+  font-size: 21px;
+  color: #111 !important;
+}
+/* line 26, ../../resources/assets/sass/app.scss */
+.navbar-default .navbar-nav > li > a:hover {
+  background-color: #fff !important;
+}
