@@ -263,6 +263,11 @@ class ArticleController extends Controller {
                     $paragraph = str_replace("[\" ", "", $paragraph);
                     $paragraph = str_replace("View this image \u203a", "", $paragraph);
                     $paragraph = str_replace("\",\"", " ", $paragraph);
+                    $paragraph = str_replace("\",[\"", "", $paragraph);
+                    $paragraph = str_replace("[[\"", "", $paragraph);
+                    $paragraph = str_replace("\"],\"", "", $paragraph);
+                    $paragraph = str_replace("\u203a", "", $paragraph);
+                    $paragraph = str_replace("\u00bc", "¼", $paragraph);
                     $article[] = $paragraph;
                 }
 
