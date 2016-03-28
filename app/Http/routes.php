@@ -37,7 +37,7 @@ Route::group(['middleware' => ['web']], function () {
 	    return view("layout.master")->nest("content", "articles.create")->nest("articleDisplay", "articles.index");
 	});
 
-	if(App::environment('local')) {
+
 		Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
-	};
+
 });

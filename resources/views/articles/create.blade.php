@@ -12,13 +12,13 @@
 				<label>Include:</label>
 				<div class="btn-group" data-toggle="buttons">
     				<label class="btn btn-default">
-    					<input type="radio"> Twitter Bio
+    					<input type="checkbox" name="bio"> Twitter Bio
     				</label>
     				<label class="btn btn-default">
-    					<input type="radio"> Location
+    					<input type="checkbox" name="location"> Location
     				</label>
     				<label class="btn btn-default">
-    					<input type="radio"> Department
+    					<input type="checkbox" name="department"> Department
     				</label>
     			</div>
 			</div>

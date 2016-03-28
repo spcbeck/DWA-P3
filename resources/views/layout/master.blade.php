@@ -51,6 +51,7 @@
 				{{ csrf_field() }}
 			</form>
 		<div class="container">
+			<h2>FuzzBeed needs content! Can you help us by generating some below?</h2>
 			<div class="row">
 				<div class="col-md-4">
 					@yield('content')
