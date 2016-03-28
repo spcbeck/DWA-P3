@@ -3,7 +3,7 @@
 @section('content')
 <div class="panel panel-default">
 	<div class="panel-heading">
-		FuzzBeed Writer Writer Maker
+		FuzzBeed Writer Maker
 	</div>
 	<div class="panel-body">
 		<form method="POST" action="/writers/create">
@@ -28,7 +28,7 @@
 </div>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		FuzzBeed List and Article Maker
+		FuzzBeed Article Maker
 	</div>
 	<div class="panel-body">
 		<form method="POST" action="/articles/create">
