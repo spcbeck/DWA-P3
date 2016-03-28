@@ -3,7 +3,7 @@
 @section('content')
 <div class="panel panel-default">
 	<div class="panel-heading">
-		Buzzfeed Writer Profile Generator
+		FuzzBeed Writer Writer Maker
 	</div>
 	<div class="panel-body">
 		<form method="POST" action="/writers/create">
@@ -28,7 +28,7 @@
 </div>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		Buzzfeed List and Article Generator
+		FuzzBeed List and Article Maker
 	</div>
 	<div class="panel-body">
 		<form method="POST" action="/articles/create">
@@ -37,7 +37,7 @@
 				<label>Type:</label>
 				<div class="btn-group" data-toggle="buttons">
     				<label class="btn btn-default">
-    					<input type="radio" name="listicle"> Listicle
+    					<input type="radio" name="listicle" required> Listicle
     				</label>
     				<label class="btn btn-default">
     					<input type="radio" name="longform"> Long Form
@@ -48,7 +48,7 @@
     			<label># of Paragraphs/List Items</label>
     			<input type-"number" name="paragraphAmount" required id="paragraphAmount"/>
     		</div>
-    		<button class="btn btn-primary" type="submit">Generate Article</button>
+    		<button class="btn btn-primary" type="submit">Make Article</button>
 		</form>
 	</div>
 </div>

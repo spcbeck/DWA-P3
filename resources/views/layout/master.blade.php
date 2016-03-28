@@ -42,7 +42,7 @@
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				    	<ul class="nav navbar-nav">
-				        	<li><a href="#" onclick="document.getElementById('scraper').submit();">Gather Content <span class="sr-only">(current)</span></a></li>
+				        	<li><a href="#" onclick="document.getElementById('scraper').submit();">Aggregate Content</a></li>
 				    	</ul>
 				    </div>
 			    </div>
@@ -51,13 +51,13 @@
 				{{ csrf_field() }}
 			</form>
 		<div class="container">
-			<h2>FuzzBeed needs content! Can you help us by generating some below?</h2>
 			<div class="row">
-				<div class="col-md-4">
-					@yield('content')
-				</div>
+				
 				<div class="col-md-8">
 					@yield('articleDisplay')
+				</div>
+				<div class="col-md-4">
+					@yield('content')
 				</div>
 			</div>
 		</div>

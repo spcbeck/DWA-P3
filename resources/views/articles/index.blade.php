@@ -9,7 +9,7 @@
 			@endif
 
 			@if(empty($header))
-				Generate something to the left.
+				FuzzBeed needs content! Can you help us out? 
 			@endif
 		</h2>
 		@if(!empty($article))
