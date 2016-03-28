@@ -31,7 +31,7 @@
 	<body>
 		<div class="container">
 			<header class="clearfix">
-				<h1 class="pull-left"><img src="/images/fuzzbeed.svg" alt="Fuzz Beed" /></h1>
+				<h1 class="pull-left"><img src="/images/FuzzBeed.svg" alt="Fuzz Beed" /></h1>
 				<img src="/images/reactions.png" alt="reactions" class="pull-right reactions" />
 			</header>
 
