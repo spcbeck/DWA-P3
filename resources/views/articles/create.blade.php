@@ -37,10 +37,10 @@
 				<label>Type:</label>
 				<div class="btn-group" data-toggle="buttons">
     				<label class="btn btn-default">
-    					<input type="radio" name="listicle" required> Listicle
+    					<input type="radio" name="type" value="listicle" required> Listicle
     				</label>
     				<label class="btn btn-default">
-    					<input type="radio" name="longform"> Long Form
+    					<input type="radio" name="type" value="longform"> Long Form
     				</label>
     			</div>
     		</div>

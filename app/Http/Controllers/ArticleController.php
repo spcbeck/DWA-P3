@@ -183,7 +183,7 @@ class ArticleController extends Controller {
         $header = str_replace("\"]", "", $header);
 
 
-        if($request->input("listicle") != null){
+        if($request->input("type") == "listicle"){
             //check if articles array file exists, if so use it to create an article, if not create a new array.
             if(file_exists("listicles.txt")){
                 $recoveredArticles = file_get_contents('listicles.txt');
@@ -234,7 +234,7 @@ class ArticleController extends Controller {
             } else {
                 $listicleItems = array();
             }
-        } elseif($request->input("longform") != null) {
+        } elseif($request->input("type") == "longform") {
             //check if articles array file exists, if so use it to create an article, if not create a new array.
             if(file_exists("articles.txt")){
                 $recoveredArticles = file_get_contents('articles.txt');
