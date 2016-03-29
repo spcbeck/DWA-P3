@@ -12,9 +12,6 @@
 				<label>Include:</label>
 				<div class="btn-group" data-toggle="buttons">
     				<label class="btn btn-default">
-    					<input type="checkbox" name="bio"> Twitter Bio
-    				</label>
-    				<label class="btn btn-default">
     					<input type="checkbox" name="location"> Location
     				</label>
     				<label class="btn btn-default">

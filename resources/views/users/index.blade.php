@@ -7,7 +7,18 @@
 			@if(!empty($name))
 				{{ $name }}
 			@endif
+			<small>
+			@if(!empty($location))
+				{{ $location }}
+			@endif
+			</small>
 		</h2>
+		<h3>
+			@if(!empty($department))
+				Department: 
+				{{ $department }}
+			@endif
+		</h3>
 		@if(!empty($article))
 			@foreach ($article as $paragraph)
 			    <p>{{ $paragraph }}.</p>

@@ -37,6 +37,7 @@ class ArticleController extends Controller {
         return $listicleItems;
     }
 
+
     /**
      * Responds to requests to Post /writers/create
      */
@@ -47,10 +48,29 @@ class ArticleController extends Controller {
         $i = array_rand($writers);
         $writer = $writers[$i];
 
+
+        //if a user requests, add a location to the writer profile
+        if($request->input("location") == "on"){
+            $locations = array('LA', "NYC", "LA *that airplane emoticon* NYC", "SF", "DC", "Brooklyn");
+            $i = array_rand($locations);
+            $location = $locations[$i];
+        } else {
+            $location = "";
+        }
+
+        //if a user requests, add a department to the writer profile
+        if($request->input("department") == "on"){
+            $departments = array("I can't even", "Youtube videos of little kids", "4lbs of butter recipe videos", "Serious journalist stuff", "Cat Videos", "Dog videos", "Other Animal videos", "Millenial affairs", "Articles written by our advertisers", "Our dads are wealthy/influential; and got us this job");
+            $i = array_rand($departments);
+            $department = $departments[$i];
+        } else {
+            $department = "";
+        }
+
         $writer = str_replace("[\"", "", $writer);
         $writer = str_replace("\"]", "", $writer);
 
-        return view("layout.master")->nest('content', 'articles.create')->nest('articleDisplay', 'users.index', ['name' => $writer]);
+        return view("layout.master")->nest('content', 'articles.create')->nest('articleDisplay', 'users.index', ['name' => $writer, 'location' => $location, '', 'department' => $department]);
     }
 
 
