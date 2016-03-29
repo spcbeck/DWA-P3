@@ -51,7 +51,7 @@ class ArticleController extends Controller {
 
         //if a user requests, add a location to the writer profile
         if($request->input("location") == "on"){
-            $locations = array('LA', "NYC", "LA *that airplane emoticon* NYC", "SF", "DC", "Brooklyn");
+            $locations = array('LA', "NYC", "LA *that airplane emoticon* NYC", "SF", "DC", "Brooklyn", "this sick coffee shop at bedford and 5th", "cyberhell", "on a hoverboard");
             $i = array_rand($locations);
             $location = $locations[$i];
         } else {
@@ -60,7 +60,7 @@ class ArticleController extends Controller {
 
         //if a user requests, add a department to the writer profile
         if($request->input("department") == "on"){
-            $departments = array("I can't even", "Youtube videos of little kids", "4lbs of butter recipe videos", "Serious journalist stuff", "Cat Videos", "Dog videos", "Other Animal videos", "Millenial affairs", "Articles written by our advertisers", "Our dads are wealthy/influential; and got us this job");
+            $departments = array("I can't even", "Youtube videos of little kids", "4lbs of butter recipe videos", "Serious journalist stuff", "Cat Videos", "Dog videos", "Other Animal videos", "Millenial affairs", "Articles written by our advertisers", "Our dads are wealthy/influential and got us this job");
             $i = array_rand($departments);
             $department = $departments[$i];
         } else {
