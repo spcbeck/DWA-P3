@@ -2,35 +2,20 @@
 
 @section('articleDisplay')
 <div class="panel panel-default">
-	<div class="panel-body">
-		<h2>
-			@if(!empty($name))
-				{{ $name }}
-			@endif
-			<small>
-			@if(!empty($location))
-				{{ $location }}
-			@endif
-			</small>
-		</h2>
-		<h3>
-			@if(!empty($department))
-				Department: 
-				{{ $department }}
-			@endif
-		</h3>
-		@if(!empty($article))
-			@foreach ($article as $paragraph)
-			    <p>{{ $paragraph }}.</p>
+		<ul class="list-group panel-body">
+			@foreach ($writers as $writer)
+			<li class="list-group-item">
+				<h2>
+					{{ $writer['name'] }}
+					<small>
+						{{ $writer['location'] }}
+					</small>
+				</h2>
+				<h3>
+					{{ $writer['department'] }}
+				</h3>
+			</li>
 			@endforeach
-		@endif
-		@if(!empty($listicle))
-			<ul>
-			@foreach ($listicle as $listitem)
-			    <li>{{ $listitem }}.</li>
-			@endforeach
-			</ul>
-		@endif
-	</div>
+		</ul>
 </div>
 @stop

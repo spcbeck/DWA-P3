@@ -44,38 +44,52 @@ class ArticleController extends Controller {
     public function postCreateWriter(Request $request) {
         $locationChecked = null;
         $departmentChecked = null;
+        $writers = array();
+        $locations = array('LA', "NYC", "LA *that airplane emoticon* NYC", "SF", "DC", "Brooklyn", "woke AF coffee shop at bedford and 5th", "cyberhell", "on a hoverboard");
+        $departments = array("I can't even", "Youtube videos of little kids", "4lbs of butter recipe videos", "Serious journalist stuff", "Cat Videos", "Dog videos", "Other Animal videos", "Millenial affairs", "Articles written by our advertisers", "Our dads are wealthy/influential and got us this job");
+
+        $this->validate($request, [
+            'writerAmount' => 'required',
+        ]);
+
+        $writerAmount = trim($request->input("writerAmount"));
 
         $recoveredWriters = file_get_contents("writers.txt");
-        $writers = explode('","', $recoveredWriters);
+        $writerArray = explode('","', $recoveredWriters);
 
-        $i = array_rand($writers);
-        $writer = $writers[$i];
+        //Create an array of writers
+        for($i = 0; $i < $writerAmount; $i++){
 
+            $w = array_rand($writerArray);
+            $writerName = $writerArray[$w];
+            if($request->input("location") == "on"){
+                $l = array_rand($locations);
+                $location = $locations[$i];
+                $locationChecked = true;
+            } else {
+                $location = "";
+            }
+            if($request->input("department") == "on"){
+                $d = array_rand($departments);
+                $department = $departments[$d];
+                $departmentChecked = true;
+            } else {
+                $department = "";
+            }
 
-        //if a user requests, add a location to the writer profile
-        if($request->input("location") == "on"){
-            $locations = array('LA', "NYC", "LA *that airplane emoticon* NYC", "SF", "DC", "Brooklyn", "woke AF coffee shop at bedford and 5th", "cyberhell", "on a hoverboard");
-            $i = array_rand($locations);
-            $location = $locations[$i];
-            $locationChecked = true;
-        } else {
-            $location = "";
+            $writerName = str_replace("[\"", "", $writerName);
+            $writerName = str_replace("\"]", "", $writerName);
+
+            $writer = [
+                'name' => $writerName,
+                'location' => $location,
+                'department' => $department
+                ];
+
+            $writers[] = $writer;
         }
 
-        //if a user requests, add a department to the writer profile
-        if($request->input("department") == "on"){
-            $departments = array("I can't even", "Youtube videos of little kids", "4lbs of butter recipe videos", "Serious journalist stuff", "Cat Videos", "Dog videos", "Other Animal videos", "Millenial affairs", "Articles written by our advertisers", "Our dads are wealthy/influential and got us this job");
-            $i = array_rand($departments);
-            $department = $departments[$i];
-            $departmentChecked = true;
-        } else {
-            $department = "";
-        }
-
-        $writer = str_replace("[\"", "", $writer);
-        $writer = str_replace("\"]", "", $writer);
-
-        return view("layout.master")->nest('content', 'articles.create', ["type" => "", 'locationChecked' => $locationChecked, 'departmentChecked' => $departmentChecked])->nest('articleDisplay', 'users.index', ['name' => $writer, 'location' => $location, '', 'department' => $department]);
+        return view("layout.master")->nest('content', 'articles.create', ["type" => "", 'locationChecked' => $locationChecked, 'departmentChecked' => $departmentChecked, 'writerAmount' => $writerAmount])->nest('articleDisplay', 'users.index', ['writers' => $writers]);
     }
 
 

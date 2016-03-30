@@ -28,6 +28,10 @@
     				</label>
     			</div>
 			</div>
+			<div class="form-group">
+    			<label># of Writer</label>
+    			<input type-"number" name="writerAmount" id="writerAmount" value="@if (!empty($writerAmount)) {{ $writerAmount }} @endif"/>
+    		</div>
 			<button class="btn btn-primary" type="submit">Generate Writer</button>
 		</form>
 	</div>

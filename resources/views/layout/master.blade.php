@@ -29,10 +29,6 @@
 	</head>
 
 	<body>
-	<?php
-ini_set('display_errors', 1); 
-error_reporting(~0);
-?>
 		<div class="container">
 			<header class="clearfix">
 				<h1 class="pull-left"><img src="/images/FuzzBeed.svg" alt="Fuzz Beed" /></h1>
