@@ -51,7 +51,7 @@ class ArticleController extends Controller {
 
         //if a user requests, add a location to the writer profile
         if($request->input("location") == "on"){
-            $locations = array('LA', "NYC", "LA *that airplane emoticon* NYC", "SF", "DC", "Brooklyn", "this sick coffee shop at bedford and 5th", "cyberhell", "on a hoverboard");
+            $locations = array('LA', "NYC", "LA *that airplane emoticon* NYC", "SF", "DC", "Brooklyn", "woke AF coffee shop at bedford and 5th", "cyberhell", "on a hoverboard");
             $i = array_rand($locations);
             $location = $locations[$i];
         } else {
@@ -111,12 +111,13 @@ class ArticleController extends Controller {
             $writers = array();
         }
        
-
+        //Go to the Buzzfeed home page and click the first story in the thumbnail navigation at the top left
         $crawler = $client->request('GET', 'http://www.buzzfeed.com/');
-
         $link = $crawler->filter(".thumb1 a")->first()->link();
         $crawler = $client->click($link);
 
+
+        //go to 10 different articles 
         for($i = 0; $i < 10; $i++) {
             
             if($crawler->filter(".list_format_dec_up .buzz_superlist_item h2")->count()) {
@@ -184,6 +185,11 @@ class ArticleController extends Controller {
      */
     public function postCreateArticle(Request $request) {
 
+        $this->validate($request, [
+            'type' => 'required',
+            'amount' => 'required',
+        ]);
+
         //get header (do this first as every article type will have a header)
         $recoveredHeaders = file_get_contents("headers.txt");
         $headers = explode('","', $recoveredHeaders);
@@ -208,7 +214,7 @@ class ArticleController extends Controller {
             if(file_exists("listicles.txt")){
                 $recoveredArticles = file_get_contents('listicles.txt');
 
-                $paragraphAmount = $request->input("paragraphAmount");
+                $paragraphAmount = $request->input("paragraph");
 
                 $article = array();
 
@@ -260,7 +266,7 @@ class ArticleController extends Controller {
                 $recoveredArticles = file_get_contents('articles.txt');
                 $listicleItems = json_decode($recoveredArticles);
 
-                $paragraphAmount = $request->input("paragraphAmount");
+                $paragraphAmount = $request->input("amount");
 
                 $article = array();
 
