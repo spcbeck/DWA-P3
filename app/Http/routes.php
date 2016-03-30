@@ -33,7 +33,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/writers/scrape', 'ArticleController@getScrapeWriters');
 
     Route::get('/', function () {
-	    return view("layout.master")->nest("content", "articles.create")->nest("articleDisplay", "articles.index");
+	    return view("layout.master")->nest("content", "articles.create", ["type" => ""])->nest("articleDisplay", "articles.index");
 	});
 
 

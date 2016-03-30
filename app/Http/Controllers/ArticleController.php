@@ -42,6 +42,9 @@ class ArticleController extends Controller {
      * Responds to requests to Post /writers/create
      */
     public function postCreateWriter(Request $request) {
+        $locationChecked = null;
+        $departmentChecked = null;
+
         $recoveredWriters = file_get_contents("writers.txt");
         $writers = explode('","', $recoveredWriters);
 
@@ -54,6 +57,7 @@ class ArticleController extends Controller {
             $locations = array('LA', "NYC", "LA *that airplane emoticon* NYC", "SF", "DC", "Brooklyn", "woke AF coffee shop at bedford and 5th", "cyberhell", "on a hoverboard");
             $i = array_rand($locations);
             $location = $locations[$i];
+            $locationChecked = true;
         } else {
             $location = "";
         }
@@ -63,6 +67,7 @@ class ArticleController extends Controller {
             $departments = array("I can't even", "Youtube videos of little kids", "4lbs of butter recipe videos", "Serious journalist stuff", "Cat Videos", "Dog videos", "Other Animal videos", "Millenial affairs", "Articles written by our advertisers", "Our dads are wealthy/influential and got us this job");
             $i = array_rand($departments);
             $department = $departments[$i];
+            $departmentChecked = true;
         } else {
             $department = "";
         }
@@ -70,7 +75,7 @@ class ArticleController extends Controller {
         $writer = str_replace("[\"", "", $writer);
         $writer = str_replace("\"]", "", $writer);
 
-        return view("layout.master")->nest('content', 'articles.create')->nest('articleDisplay', 'users.index', ['name' => $writer, 'location' => $location, '', 'department' => $department]);
+        return view("layout.master")->nest('content', 'articles.create', ["type" => "", 'locationChecked' => $locationChecked, 'departmentChecked' => $departmentChecked])->nest('articleDisplay', 'users.index', ['name' => $writer, 'location' => $location, '', 'department' => $department]);
     }
 
 
@@ -177,13 +182,16 @@ class ArticleController extends Controller {
         file_put_contents('headers.txt', $jsonHeaders);
 
 
-        return view("layout.master")->nest("content", "articles.create")->nest("articleDisplay", 'articles.index', ['header' => "Successfully gathered Content!"]);
+        return view("layout.master")->nest("content", "articles.create", ["type" => ""])->nest("articleDisplay", 'articles.index', ['header' => "Successfully gathered Content!"]);
     }
 
     /**
      * Responds to requests to POST /articles/create
      */
     public function postCreateArticle(Request $request) {
+
+        $type = $request->input("type");
+        $paragraphAmount = trim($request->input("amount"));
 
         $this->validate($request, [
             'type' => 'required',
@@ -209,12 +217,10 @@ class ArticleController extends Controller {
         $header = str_replace("\"]", "", $header);
 
 
-        if($request->input("type") == "listicle"){
+        if($type == "listicle"){
             //check if articles array file exists, if so use it to create an article, if not create a new array.
             if(file_exists("listicles.txt")){
                 $recoveredArticles = file_get_contents('listicles.txt');
-
-                $paragraphAmount = $request->input("paragraph");
 
                 $article = array();
 
@@ -252,7 +258,7 @@ class ArticleController extends Controller {
 
                 if(is_array($listicleItems)){
                     return view('layout.master')
-                    ->nest('content', 'articles.create')
+                    ->nest('content', 'articles.create', ['paragraphAmount' => $paragraphAmount, 'type' => $type])
                     ->nest('articleDisplay', 'articles.index', ['article' => $article, 'header' => $header]);
                 } else {
                     return view('layout.master');
@@ -260,13 +266,11 @@ class ArticleController extends Controller {
             } else {
                 $listicleItems = array();
             }
-        } elseif($request->input("type") == "longform") {
+        } elseif($type == "longform") {
             //check if articles array file exists, if so use it to create an article, if not create a new array.
             if(file_exists("articles.txt")){
                 $recoveredArticles = file_get_contents('articles.txt');
                 $listicleItems = json_decode($recoveredArticles);
-
-                $paragraphAmount = $request->input("amount");
 
                 $article = array();
 
@@ -307,7 +311,7 @@ class ArticleController extends Controller {
 
                 if(is_array($listicleItems)){
                     return view('layout.master')
-                    ->nest('content', 'articles.create')
+                    ->nest('content', 'articles.create', ['paragraphAmount' => $paragraphAmount, 'type' => $type])
                     ->nest('articleDisplay', 'articles.index', ['article' => $article, 'header' => $header]);
                 } else {
                     return view('layout.master');

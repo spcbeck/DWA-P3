@@ -20,11 +20,11 @@
 			<div class="form-group">
 				<label>Include:</label>
 				<div class="btn-group" data-toggle="buttons">
-    				<label class="btn btn-default">
-    					<input type="checkbox" name="location"> Location
+    				<label class="btn btn-default @if(!empty($locationChecked)) active @endif">
+    					<input type="checkbox" name="location" @if(!empty($locationChecked)) checked=checked @endif> Location
     				</label>
-    				<label class="btn btn-default">
-    					<input type="checkbox" name="department"> Department
+    				<label class="btn btn-default @if(!empty($departmentChecked)) active @endif">
+    					<input type="checkbox" name="department" @if(!empty($departmentChecked)) checked=checked @endif> Department
     				</label>
     			</div>
 			</div>
@@ -42,17 +42,17 @@
 			<div class="form-group">
 				<label>Type:</label>
 				<div class="btn-group" data-toggle="buttons">
-    				<label class="btn btn-default">
-    					<input type="radio" name="type" value="listicle"> Listicle
+    				<label class="btn btn-default @if($type == "listicle") active @endif">
+    					<input type="radio" name="type" value="listicle" @if($type == "listicle") checked=checked @endif /> Listicle
     				</label>
-    				<label class="btn btn-default">
-    					<input type="radio" name="type" value="longform"> Long Form
+    				<label class="btn btn-default @if($type == "longform") active @endif">
+    					<input type="radio" name="type" value="longform" @if($type == "longform") checked=checked @endif> Long Form 
     				</label>
     			</div>
     		</div>
     		<div class="form-group">
     			<label># of Paragraphs/List Items</label>
-    			<input type-"number" name="amount" id="amount"/>
+    			<input type-"number" name="amount" id="amount" value="@if (!empty($paragraphAmount)) {{ $paragraphAmount }} @endif"/>
     		</div>
     		<button class="btn btn-primary" type="submit">Make Article</button>
 		</form>
