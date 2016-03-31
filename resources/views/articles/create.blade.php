@@ -56,7 +56,7 @@
     		</div>
     		<div class="form-group">
     			<label># of Paragraphs/List Items</label>
-    			<input type-"number" name="amount" id="amount" value="@if (!empty($paragraphAmount)) {{ $paragraphAmount }} @endif"/>
+    			<input type="number" name="amount" id="amount" value="@if (!empty($paragraphAmount)) {{ $paragraphAmount }} @endif"/>
     		</div>
     		<button class="btn btn-primary" type="submit">Make Article</button>
 		</form>
