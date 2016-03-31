@@ -10,23 +10,28 @@ h1 img {
 }
 
 /* line 12, ../../resources/assets/sass/app.scss */
+.panel h2 {
+  margin-top: 0;
+}
+
+/* line 16, ../../resources/assets/sass/app.scss */
 .reactions {
   width: 418px;
   margin-top: 5px;
 }
 
-/* line 17, ../../resources/assets/sass/app.scss */
+/* line 21, ../../resources/assets/sass/app.scss */
 .navbar-default .navbar-collapse, .navbar-default .navbar-form, .navbar-default {
   border-color: transparent !important;
   background-color: #eaeaea !important;
 }
 
-/* line 22, ../../resources/assets/sass/app.scss */
+/* line 26, ../../resources/assets/sass/app.scss */
 .navbar-default .navbar-nav > li > a {
   font-size: 21px;
   color: #111 !important;
 }
-/* line 26, ../../resources/assets/sass/app.scss */
+/* line 30, ../../resources/assets/sass/app.scss */
 .navbar-default .navbar-nav > li > a:hover {
   background-color: #fff !important;
 }

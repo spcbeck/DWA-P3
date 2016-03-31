@@ -15,7 +15,7 @@
 		FuzzBeed Writer Maker
 	</div>
 	<div class="panel-body">
-		<form method="POST" action="/writers/create">
+		<form method="GET" action="/writers/create">
 		{{ csrf_field() }}
 			<div class="form-group">
 				<label>Include:</label>
@@ -41,7 +41,7 @@
 		FuzzBeed Article Maker
 	</div>
 	<div class="panel-body">
-		<form method="POST" action="/articles/create">
+		<form method="GET" action="/articles/create">
 			{{ csrf_field() }}
 			<div class="form-group">
 				<label>Type:</label>

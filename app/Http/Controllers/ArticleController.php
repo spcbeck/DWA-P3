@@ -7,41 +7,10 @@ use Illuminate\Http\Request;
 use Goutte\Client;
 
 class ArticleController extends Controller {
-
     /**
-    * Responds to requests to GET /articles
-    */
-    public function getIndex() {
-        return view('articles.index');
-    }
-
-    /**
-     * Responds to requests to GET /writers/scrape
+     * Responds to requests to GET /writers/create
      */
-    public function getScrapeWriters() {
-        $client = new Client();
-
-        $listicleItems = array();
-
-        $crawler = $client->request('GET', 'http://www.buzzfeed.com/crystalro/zoltar-speaks');
-
-        for($i = 0; $i < 10; $i++) {
-            $listicle = $crawler->filter(".byline__author")->text();
-
-            $listicleItems[] = $listicle;
-
-            $link = $crawler->filter(".related-title")->link();
-            $crawler = $client->click($link);
-        }
-
-        return $listicleItems;
-    }
-
-
-    /**
-     * Responds to requests to Post /writers/create
-     */
-    public function postCreateWriter(Request $request) {
+    public function getCreateWriter(Request $request) {
         $locationChecked = null;
         $departmentChecked = null;
         $writers = array();
@@ -49,7 +18,7 @@ class ArticleController extends Controller {
         $departments = array("I can't even", "Youtube videos of little kids", "4lbs of butter recipe videos", "Serious journalist stuff", "Cat Videos", "Dog videos", "Other Animal videos", "Millenial affairs", "Articles written by our advertisers", "Our dads are wealthy/influential and got us this job");
 
         $this->validate($request, [
-            'writerAmount' => 'required',
+            'writerAmount' => 'required|max:10|numeric',
         ]);
 
         $writerAmount = trim($request->input("writerAmount"));
@@ -200,16 +169,16 @@ class ArticleController extends Controller {
     }
 
     /**
-     * Responds to requests to POST /articles/create
+     * Responds to requests to GET /articles/create
      */
-    public function postCreateArticle(Request $request) {
+    public function getCreateArticle(Request $request) {
 
         $type = $request->input("type");
         $paragraphAmount = trim($request->input("amount"));
 
         $this->validate($request, [
             'type' => 'required',
-            'amount' => 'required',
+            'amount' => 'required|max:30|numeric',
         ]);
 
         //get header (do this first as every article type will have a header)

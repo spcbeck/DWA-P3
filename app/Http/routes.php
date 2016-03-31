@@ -23,14 +23,11 @@
 */
 
 Route::group(['middleware' => ['web']], function () {
-    //
-	Route::get('/articles', 'ArticleController@getIndex');
 
-    Route::post('/articles/create', 'ArticleController@postCreateArticle');
-    Route::post('/writers/create', 'ArticleController@postCreateWriter');
+    Route::get('/articles/create', 'ArticleController@getCreateArticle');
+    Route::get('/writers/create', 'ArticleController@getCreateWriter');
 
     Route::get('/articles/scrape', 'ArticleController@getScrapeArticle');
-    Route::get('/writers/scrape', 'ArticleController@getScrapeWriters');
 
     Route::get('/', function () {
 	    return view("layout.master")->nest("content", "articles.create", ["type" => ""])->nest("articleDisplay", "articles.index");
