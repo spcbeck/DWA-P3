@@ -18,7 +18,7 @@ class ArticleController extends Controller {
         $departments = array("I can't even", "Youtube videos of little kids", "4lbs of butter recipe videos", "Serious journalist stuff", "Cat Videos", "Dog videos", "Other Animal videos", "Millenial affairs", "Articles written by our advertisers", "Our dads are wealthy/influential and got us this job");
 
         $this->validate($request, [
-            'writerAmount' => 'required|max:10|numeric',
+            'writerAmount' => 'required|max:10|numeric|min:1',
         ]);
 
         $writerAmount = trim($request->input("writerAmount"));
@@ -178,7 +178,7 @@ class ArticleController extends Controller {
 
         $this->validate($request, [
             'type' => 'required',
-            'amount' => 'required|max:30|numeric',
+            'amount' => 'required|max:30|numeric|min:1',
         ]);
 
         //get header (do this first as every article type will have a header)
